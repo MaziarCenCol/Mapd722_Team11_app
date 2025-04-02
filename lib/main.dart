@@ -42,7 +42,7 @@ class _PatientListScreenState extends State<PatientListScreen> {
 
   Future<void> fetchPatients() async {
     final response =
-        await http.get(Uri.parse('http://localhost:5000/api/patient/patients'));
+        await http.get(Uri.parse('http://10.0.2.2:5000/api/patient/patients'));
 
     if (response.statusCode == 200) {
       List data = jsonDecode(response.body);
@@ -194,14 +194,12 @@ class _PatientListScreenState extends State<PatientListScreen> {
                             ],
                           ),
                           onTap: () {
-                            String? patientId = patient[
-                                '_id']; // Ensure the patient ID is not null
+                            String? patientId = patient['_id']; // Ensure the patient ID is not null
                             if (patientId != null) {
                               // Navigate to the ViewPatientScreen passing the patient ID
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
+                                MaterialPageRoute(builder: (context) =>
                                       ViewPatientScreen(patientId: patientId),
                                 ),
                               );

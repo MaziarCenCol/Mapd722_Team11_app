@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'addClinical.dart';
+import 'package:intl/intl.dart';
 
 class ViewPatientScreen extends StatefulWidget {
   final String patientId;
@@ -124,11 +125,12 @@ class _ViewPatientScreenState extends State<ViewPatientScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        'Clinical Test ${clinical['date']}',
+                                    Text(
+                                        '> ${DateFormat('MMMM dd, yyyy').format(DateTime.parse(clinical['testDate']))}',
                                         style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold),
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                       SizedBox(height: 8),
                                       Text(
