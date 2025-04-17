@@ -30,7 +30,8 @@ class _AddClinicalScreenState extends State<AddClinicalScreen> {
             children: [
               TextFormField(
                 controller: _bphController,
-                decoration: InputDecoration(labelText: 'Blood Pressure (Systolic)'),
+                decoration:
+                    InputDecoration(labelText: 'Blood Pressure (Systolic)'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -41,7 +42,8 @@ class _AddClinicalScreenState extends State<AddClinicalScreen> {
               ),
               TextFormField(
                 controller: _bplController,
-                decoration: InputDecoration(labelText: 'Blood Pressure (Diastolic)'),
+                decoration:
+                    InputDecoration(labelText: 'Blood Pressure (Diastolic)'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -63,7 +65,8 @@ class _AddClinicalScreenState extends State<AddClinicalScreen> {
               ),
               TextFormField(
                 controller: _rrController,
-                decoration: InputDecoration(labelText: 'Respiratory Rate (bpm)'),
+                decoration:
+                    InputDecoration(labelText: 'Respiratory Rate (bpm)'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -74,7 +77,8 @@ class _AddClinicalScreenState extends State<AddClinicalScreen> {
               ),
               TextFormField(
                 controller: _bolController,
-                decoration: InputDecoration(labelText: 'Blood Oxygen Level (%)'),
+                decoration:
+                    InputDecoration(labelText: 'Blood Oxygen Level (%)'),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -88,8 +92,17 @@ class _AddClinicalScreenState extends State<AddClinicalScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      // Submit the data to the API
-                      // You can use your patient ID to send the request
+                      final newRecord = {
+                        'date': DateTime.now().toIso8601String(),
+                        'bph': int.parse(_bphController.text),
+                        'bpl': int.parse(_bplController.text),
+                        'hbr': int.parse(_hbrController.text),
+                        'rr': int.parse(_rrController.text),
+                        'bol': int.parse(_bolController.text),
+                      };
+
+                      Navigator.pop(context,
+                          newRecord); // Return to previous screen with new data
                     }
                   },
                   child: Text('Save Clinical Record'),
@@ -102,3 +115,5 @@ class _AddClinicalScreenState extends State<AddClinicalScreen> {
     );
   }
 }
+
+

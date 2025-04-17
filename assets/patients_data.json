@@ -1,0 +1,142 @@
+[{
+  "_id": "1",
+  "name": "John -- Doe",
+  "email": "john.doe@example.com",
+  "phone": "123-456-7890",
+  "bdate": "1965-05-15T00:00:00.000Z",
+  "gender": "Male",
+  "address": "123 Elm Street, Springfield, IL",
+  "status": "Critical",
+  "image": "John Doe.jpg",
+  "user_id": "1",
+  "clinical": [
+    {
+      "date": "2025-03-25",
+      "bph": 120,
+      "bpl": 80,
+      "rr": 16,
+      "bol": 98,
+      "hbr": 75
+    },
+    {
+      "date": "2025-03-26",
+      "bph": 122,
+      "bpl": 82,
+      "rr": 15,
+      "bol": 99,
+      "hbr": 74
+    },
+    {
+      "date": "2025-03-27",
+      "bph": 118,
+      "bpl": 78,
+      "rr": 17,
+      "bol": 97,
+      "hbr": 76
+    }
+  ]
+},
+{
+  "_id": "2",
+  "name": "Jane Smith",
+  "email": "jane.smith@example.com",
+  "phone": "987-654-3210",
+  "bdate": "1962-07-22T00:00:00.000Z",
+  "gender": "Female",
+  "address": "456 Oak Avenue, Metropolis, NY",
+  "status": "normal",
+  "image": "Jane Smith.jpg",
+  "user_id": "1",
+  "clinical": [
+    {
+      "date": "2025-03-25",
+      "bph": 135,
+      "bpl": 88,
+      "rr": 20,
+      "bol": 96,
+      "hbr": 78
+    },
+    {
+      "date": "2025-03-26",
+      "bph": 140,
+      "bpl": 90,
+      "rr": 21,
+      "bol": 94,
+      "hbr": 80
+    }
+  ]
+},
+{
+  "_id": "3",
+  "name": "Alice Johnson",
+  "email": "alice.johnson@example.com",
+  "phone": "555-123-4567",
+  "bdate": "1970-03-12T00:00:00.000Z",
+  "gender": "Female",
+  "address": "789 Pine Lane, Gotham City",
+  "status": "normal",
+  "image": "Alice Johnson.jpg",
+  "user_id": "1",
+  "clinical": [
+    {
+      "date": "2025-03-25",
+      "bph": 160,
+      "bpl": 95,
+      "rr": 19,
+      "bol": 95,
+      "hbr": 80
+    }
+  ]
+},
+{
+  "_id": "4",
+  "name": "Robert Brown",
+  "email": "robert.brown@example.com",
+  "phone": "444-567-8901",
+  "bdate": "1967-11-03T00:00:00.000Z",
+  "gender": "Male",
+  "address": "321 Cedar Street, Star City",
+  "status": "critical",
+  "image": "Robert Brown.jpg",
+  "user_id": "1",
+  "clinical": [
+    {
+      "date": "2025-03-25",
+      "bph": 45,
+      "bpl": 85,
+      "rr": 15,
+      "bol": 95,
+      "hbr": 85
+    }
+  ]
+},
+{
+  "_id": "5",
+  "name": "John Smith",
+  "email": "john.smith@example.com",
+  "phone": "997-556-3210",
+  "bdate": "1969-07-22T00:00:00.000Z",
+  "gender": "Male",
+  "address": "456 Oak Avenue, Metropolis, NY",
+  "status": "Critical",
+  "image": "john Smith.jpg",
+  "user_id": "1",
+  "clinical": [
+    {
+      "date": "2025-03-25",
+      "bph": 135,
+      "bpl": 88,
+      "rr": 20,
+      "bol": 96,
+      "hbr": 78
+    },
+    {
+      "date": "2025-03-26",
+      "bph": 75,
+      "bpl": 20,
+      "rr": 10,
+      "bol": 80,
+      "hbr": 55
+    }
+  ]
+}]

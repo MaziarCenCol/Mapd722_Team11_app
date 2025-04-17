@@ -1,13 +1,20 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'addClinical.dart';
 import 'package:intl/intl.dart';
+import 'local_storage.dart';
 
 class ViewPatientScreen extends StatefulWidget {
   final String patientId;
+  final String caregiverName;
+  final int totalPatients;
 
-  const ViewPatientScreen({super.key, required this.patientId});
+  const ViewPatientScreen({
+    Key? key,
+    required this.patientId,
+    required this.caregiverName,
+    required this.totalPatients,
+  }) : super(key: key);
 
   @override
   _ViewPatientScreenState createState() => _ViewPatientScreenState();
@@ -24,19 +31,23 @@ class _ViewPatientScreenState extends State<ViewPatientScreen> {
     fetchPatientData();
   }
 
+  // Load the data from the local 'patients_data.json' instead of an API.
   Future<void> fetchPatientData() async {
-    final response = await http.get(Uri.parse(
-        'http://localhost:5000/api/patient/patients/${widget.patientId}'));
+    final data = await LocalStorage.readPatients();
 
-    if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
+    final patientData = data.firstWhere(
+      (patient) => patient['_id'] == widget.patientId,
+      orElse: () => throw Exception('Patient data not found'),
+    );
+
+    if (patientData.isNotEmpty) {
       setState(() {
-        patient = data;
+        patient = patientData;
         clinicalHistory = patient['clinical'] ?? [];
         isLoading = false;
       });
     } else {
-      throw Exception('Failed to load patient data');
+      throw Exception('Patient data not found');
     }
   }
 
@@ -64,7 +75,9 @@ class _ViewPatientScreenState extends State<ViewPatientScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Patient Details')),
+      appBar: AppBar(
+        title: Text('${widget.caregiverName} : (${widget.totalPatients})'),
+      ),
       body: isLoading
           ? Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
@@ -125,8 +138,8 @@ class _ViewPatientScreenState extends State<ViewPatientScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                    Text(
-                                        '> ${DateFormat('MMMM dd, yyyy').format(DateTime.parse(clinical['testDate']))}',
+                                      Text(
+                                        '> ${DateFormat('MMMM dd, yyyy').format(DateTime.parse(clinical['date']))}',
                                         style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold,
@@ -171,23 +184,40 @@ class _ViewPatientScreenState extends State<ViewPatientScreen> {
                               );
                             }).toList(),
                           ),
-                    
+
                     // Button to Navigate to Add Clinical
                     Padding(
                       padding: EdgeInsets.only(top: 16),
                       child: FloatingActionButton(
-                        onPressed: () {
-                          // Navigate to the AddClinicalScreen
-                          Navigator.push(
+                        onPressed: () async {
+                          final newRecord = await Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => AddClinicalScreen(
                                   patientId: widget.patientId),
                             ),
                           );
+
+                          if (newRecord != null) {
+                            setState(() {
+                              clinicalHistory.add(newRecord);
+                              patient['clinical'] = clinicalHistory;
+                            });
+
+                            final allPatients =
+                                await LocalStorage.readPatients();
+                            final index = allPatients.indexWhere(
+                              (p) => p['_id'] == widget.patientId,
+                            );
+
+                            if (index != -1) {
+                              allPatients[index] = patient;
+                              await LocalStorage.writePatients(allPatients);
+                            }
+                          }
                         },
-                        child: Icon(Icons.add),  // "+" icon
-                        backgroundColor: Colors.green,  // Green background
+                        child: Icon(Icons.add), // "+" icon
+                        backgroundColor: Colors.green, // Green background
                         tooltip: 'Add Clinical Record',
                       ),
                     ),

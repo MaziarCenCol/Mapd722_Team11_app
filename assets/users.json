@@ -1,0 +1,16 @@
+[{
+  "_id": "1",
+  "name": "Maziar",
+  "email": "maz@email.com",
+  "password": "1234",
+  "phone": "+1234567890",
+  "position": "CareGiver"
+},
+{
+  "_id": "2",
+  "name": "Kristina",
+  "email": "kris@email.com",
+  "password": "1234",
+  "phone": "+1987654321",
+  "position": "CareGiver"
+}]
